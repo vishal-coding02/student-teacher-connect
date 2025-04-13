@@ -78,6 +78,9 @@ function Signup() {
           localStorage.setItem("userName", user.displayName);
           localStorage.setItem("userEmail", user.email);
           localStorage.setItem("userAccessToken", user.uid);
+          localStorage.setItem("userType", formData.userType);
+
+          console.log("Firebase User:", user);
         } else {
           alert(
             "Email not verified. Please verify your email and sign up again."
@@ -138,6 +141,8 @@ function Signup() {
         localStorage.setItem("userName", user.displayName);
         localStorage.setItem("userEmail", user.email);
         localStorage.setItem("userAccessToken", user.uid);
+        localStorage.setItem("userType", formData.userType);
+        console.log("Firebase User:", user);
       } else {
         alert("please fill the required field");
       }

@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [userEmail, setUserEmail] = useState(null);
+  const [userType, setUserType] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const email = localStorage.getItem("userEmail");
+    const type = localStorage.getItem("userType");
     if (email) {
       setUserEmail(email);
+    }
+    if (type) {
+      setUserType(type);
     }
   }, []);
 
   const handleLogout = () => {
     localStorage.clear();
     setUserEmail(null);
+    setUserType(null);
     navigate("/login");
   };
 
@@ -59,22 +67,37 @@ const Navbar = () => {
           >
             About
           </Link>
-          <Link
-            to="/studentProfile"
-            className="block py-2 px-4 sm:px-6 text-base sm:text-lg hover:text-yellow-300 transition duration-300"
-          >
-            User Profile
-          </Link>
           {userEmail ? (
-            <>
-              <span className="text-yellow-300 px-4">{userEmail}</span>
+            <div className="relative">
               <button
-                onClick={handleLogout}
-                className="block py-2 px-4 sm:px-6 text-base sm:text-lg hover:text-yellow-300 transition duration-300"
+                onClick={() => setShowMenu(!showMenu)}
+                className="flex items-center py-2 px-4 sm:px-6 text-base sm:text-lg hover:text-yellow-300 transition duration-300"
               >
-                Logout
+                <i className="hover:text-gray-900/90 hover:bg-yellow-300 p-[10px] rounded-[50%] fa-solid fa-user"></i>
               </button>
-            </>
+              {/* Dropdown Menu */}
+              {showMenu && (
+                <div className="absolute right-0 mt-2 w-30 bg-gray-800 rounded-md shadow-lg z-20">
+                  <Link
+                    to={
+                      userType === "mentor"
+                        ? "/mentorProfile"
+                        : "/studentProfile"
+                    }
+                    className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                    onClick={() => setShowMenu(false)}
+                  >
+                    View Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               <Link

@@ -1,39 +1,51 @@
-import React from 'react';
-import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
+import { useState, useEffect } from "react";
+
+import React from "react";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 function MentorProfile() {
   // Hardcoded mentor data
+  const [mentorName, setMentorName] = useState(null);
+
+  useEffect(() => {
+    const name = localStorage.getItem("userName");
+    if (name) setMentorName(name);
+  }, []);
+  
   const mentor = {
-    name: 'Sarah Johnson',
-    bio: 'A passionate Senior React Developer with over 10 years of experience in building scalable web applications. I love mentoring students and helping them master modern JavaScript frameworks.',
-    profilePicture: './assests/images/man.jpg',
-    experience: '10+ years',
-    hourlyRate: '50 Coins',
-    availability: ['Weekdays 5-7 PM', 'Weekends 10 AM - 1 PM'],
-    teachingStyle: 'Interactive, hands-on coding sessions',
-    languages: ['English', 'Hindi'],
-    skills: ['React', 'Node.js', 'JavaScript', 'TypeScript', 'CSS', 'Git'],
+    name: mentorName,
+    bio: "A passionate Senior React Developer with over 10 years of experience in building scalable web applications. I love mentoring students and helping them master modern JavaScript frameworks.",
+    profilePicture: "./assests/images/man.jpg",
+    experience: "10+ years",
+    hourlyRate: "50 Coins",
+    availability: ["Weekdays 5-7 PM", "Weekends 10 AM - 1 PM"],
+    teachingStyle: "Interactive, hands-on coding sessions",
+    languages: ["English", "Hindi"],
+    skills: ["React", "Node.js", "JavaScript", "TypeScript", "CSS", "Git"],
     reviews: [
       {
-        studentName: 'John Doe',
+        studentName: "John Doe",
         rating: 5,
-        comment: 'Sarah was incredibly helpful with my React project. She explained hooks in a way that finally clicked!',
+        comment:
+          "Sarah was incredibly helpful with my React project. She explained hooks in a way that finally clicked!",
       },
       {
-        studentName: 'Emma Smith',
+        studentName: "Emma Smith",
         rating: 4,
-        comment: 'Great mentor, very knowledgeable. Could improve on time management during sessions.',
+        comment:
+          "Great mentor, very knowledgeable. Could improve on time management during sessions.",
       },
     ],
     membershipPlan: {
-      name: 'Standard Plan',
-      price: '$240 / month',
-      description: 'I\'ll be your go-to person and provide additional perspectives on tech and career topics.',
+      name: "Standard Plan",
+      price: "$240 / month",
+      description:
+        "I'll be your go-to person and provide additional perspectives on tech and career topics.",
       features: [
-        '2 calls per month (30min/call)',
-        'Unlimited Q&A via chat',
-        'Expect responses in 2 days',
+        "2 calls per month (30min/call)",
+        "Unlimited Q&A via chat",
+        "Expect responses in 2 days",
       ],
       spotsLeft: 1,
     },
@@ -51,8 +63,12 @@ function MentorProfile() {
             {/* Header Card */}
             <div className="bg-gray-700 px-4 sm:px-6 md:px-8 py-4 sm:py-6 border-b border-gray-600 flex flex-col sm:flex-row justify-between items-center gap-4">
               <div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Mentor Profile</h2>
-                <p className="text-gray-400 mt-1 text-sm sm:text-base">Meet your potential mentor.</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                  Mentor Profile
+                </h2>
+                <p className="text-gray-400 mt-1 text-sm sm:text-base">
+                  Meet your potential mentor.
+                </p>
               </div>
               <button className="bg-yellow-400 text-gray-900 px-3 sm:px-4 py-1 sm:py-2 rounded-lg font-semibold shadow-md hover:bg-yellow-500 transform hover:scale-105 transition duration-300 text-xs sm:text-sm">
                 Edit Profile
@@ -69,9 +85,15 @@ function MentorProfile() {
                   className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-4 border-yellow-400 shadow-md"
                 />
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-white">{mentor.name}</h3>
-                  <p className="text-gray-400 mt-1 text-sm sm:text-base">{mentor.experience} Experience</p>
-                  <p className="text-gray-200 mt-2 text-sm sm:text-base leading-relaxed">{mentor.bio}</p>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white">
+                    {mentor.name}
+                  </h3>
+                  <p className="text-gray-400 mt-1 text-sm sm:text-base">
+                    {mentor.experience} Experience
+                  </p>
+                  <p className="text-gray-200 mt-2 text-sm sm:text-base leading-relaxed">
+                    {mentor.bio}
+                  </p>
                 </div>
               </div>
 
@@ -81,7 +103,9 @@ function MentorProfile() {
                   <h3 className="text-xs sm:text-sm text-gray-400 font-medium uppercase tracking-wide mb-1 sm:mb-2">
                     Pricing
                   </h3>
-                  <p className="text-base sm:text-lg text-white font-semibold">{mentor.hourlyRate} / Hour</p>
+                  <p className="text-base sm:text-lg text-white font-semibold">
+                    {mentor.hourlyRate} / Hour
+                  </p>
                 </div>
                 <div>
                   <h3 className="text-xs sm:text-sm text-gray-400 font-medium uppercase tracking-wide mb-1 sm:mb-2">
@@ -89,7 +113,12 @@ function MentorProfile() {
                   </h3>
                   <ul className="space-y-1">
                     {mentor.availability.map((slot, index) => (
-                      <li key={index} className="text-base sm:text-lg text-white">{slot}</li>
+                      <li
+                        key={index}
+                        className="text-base sm:text-lg text-white"
+                      >
+                        {slot}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -101,7 +130,9 @@ function MentorProfile() {
                   <h3 className="text-xs sm:text-sm text-gray-400 font-medium uppercase tracking-wide mb-1 sm:mb-2">
                     Teaching Style
                   </h3>
-                  <p className="text-base sm:text-lg text-white">{mentor.teachingStyle}</p>
+                  <p className="text-base sm:text-lg text-white">
+                    {mentor.teachingStyle}
+                  </p>
                 </div>
                 <div>
                   <h3 className="text-xs sm:text-sm text-gray-400 font-medium uppercase tracking-wide mb-1 sm:mb-2">
@@ -139,12 +170,21 @@ function MentorProfile() {
 
               {/* Membership Plan */}
               <div className="bg-gray-700 p-4 sm:p-6 rounded-lg">
-                <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-4">{mentor.membershipPlan.name}</h3>
-                <p className="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">{mentor.membershipPlan.price}</p>
-                <p className="text-gray-200 text-sm sm:text-base mb-3 sm:mb-4">{mentor.membershipPlan.description}</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-4">
+                  {mentor.membershipPlan.name}
+                </h3>
+                <p className="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">
+                  {mentor.membershipPlan.price}
+                </p>
+                <p className="text-gray-200 text-sm sm:text-base mb-3 sm:mb-4">
+                  {mentor.membershipPlan.description}
+                </p>
                 <ul className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
                   {mentor.membershipPlan.features.map((feature, index) => (
-                    <li key={index} className="text-gray-200 text-sm sm:text-base flex items-center gap-2">
+                    <li
+                      key={index}
+                      className="text-gray-200 text-sm sm:text-base flex items-center gap-2"
+                    >
                       <span className="text-yellow-400">●</span> {feature}
                     </li>
                   ))}
@@ -166,21 +206,30 @@ function MentorProfile() {
                 </h3>
                 <div className="space-y-4 sm:space-y-6">
                   {mentor.reviews.map((review, index) => (
-                    <div key={index} className="bg-gray-700 p-3 sm:p-4 rounded-lg">
+                    <div
+                      key={index}
+                      className="bg-gray-700 p-3 sm:p-4 rounded-lg"
+                    >
                       <div className="flex items-center justify-between mb-1 sm:mb-2">
-                        <p className="text-base sm:text-lg font-semibold text-white">{review.studentName}</p>
+                        <p className="text-base sm:text-lg font-semibold text-white">
+                          {review.studentName}
+                        </p>
                         <div className="flex">
                           {[...Array(5)].map((_, i) => (
                             <span
                               key={i}
-                              className={`text-yellow-400 ${i < review.rating ? 'opacity-100' : 'opacity-50'}`}
+                              className={`text-yellow-400 ${
+                                i < review.rating ? "opacity-100" : "opacity-50"
+                              }`}
                             >
                               ★
                             </span>
                           ))}
                         </div>
                       </div>
-                      <p className="text-gray-200 text-sm sm:text-base">{review.comment}</p>
+                      <p className="text-gray-200 text-sm sm:text-base">
+                        {review.comment}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -204,3 +253,5 @@ function MentorProfile() {
 }
 
 export default MentorProfile;
+
+

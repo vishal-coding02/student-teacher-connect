@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
 function UserProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    const email = localStorage.getItem("userEmail");
+    const name = localStorage.getItem("userName");
+
+    if (email) setUserEmail(email);
+    if (name) setUserName(name);
+  }, []);
 
   // Hardcoded user data
   const user = {
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: userName,
+    email: userEmail,
     profilePicture: "./assests/images/man2.webp",
     bio: "A passionate learner looking to master web development and build real-world projects with the help of experienced mentors.",
     interests: ["React", "JavaScript", "CSS", "Python"],
@@ -36,13 +46,18 @@ function UserProfile() {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-lg overflow-hidden">
             {/* Header Card */}
-            <div className="bg-gray-700 px-4 sm:px-6 md:px-8 py-4 sm:py-6 border-b border-gray-600">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
-                User Profile
-              </h2>
-              <p className="text-gray-400 mt-1 text-sm sm:text-base">
-                View and manage your profile details.
-              </p>
+            <div className="bg-gray-700 px-4 sm:px-6 md:px-8 py-4 sm:py-6 border-b border-gray-600 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <div>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                  User Profile
+                </h2>
+                <p className="text-gray-400 mt-1 text-sm sm:text-base">
+                  View and manage your profile details.
+                </p>
+              </div>
+              <button className="bg-yellow-400 text-gray-900 px-3 sm:px-4 py-1 sm:py-2 rounded-lg font-semibold shadow-md hover:bg-yellow-500 transform hover:scale-105 transition duration-300 text-xs sm:text-sm">
+                Edit Profile
+              </button>
             </div>
 
             {/* Content */}

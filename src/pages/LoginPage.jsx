@@ -24,40 +24,43 @@ function Login() {
         signIn.userPassword
       );
       const user = userCredential.user;
-  
+
       // Firestore se user ka data lana
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
-  
+
       if (!userSnap.exists()) {
         alert("No account found. Please signup first.");
         navigate("/signup");
         return;
       }
-  
-      const userData = userSnap.data(); // Firestore se user ka data
-  
+
+      const userData = userSnap.data();
+
+      localStorage.setItem("userName", user.displayName || userData.name);
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userAccessToken", user.uid);
+      localStorage.setItem("userType", userData.userType);
+
+      alert("User Logged In Successfully!");
+      console.log("Firestore Data:", userData);
       // Navigate based on userType
       if (userData.userType === "mentor") {
         navigate("/mentorProfileCreate");
       } else if (userData.userType === "student") {
         navigate("/postRequirment");
       }
-  
-      alert("User Logged In Successfully!");
-  
     } catch (error) {
       console.error("Login Failed:", error.message);
       alert("Login Failed: " + error.message);
     }
-  
+
     // Reset form fields
     setSignIn({
       userEmail: "",
       userPassword: "",
     });
   }
-  
 
   async function googleSignIn() {
     try {
@@ -79,8 +82,13 @@ function Login() {
 
       const userData = userSnap.data();
 
-      alert("Login successful!");
+      localStorage.setItem("userName", user.displayName || userData.name);
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userAccessToken", user.uid);
+      localStorage.setItem("userType", userData.userType);
 
+      alert("Login successful!");
+      console.log("Firestore Data:", userData);
       // Navigate based on userType
       if (userData.userType === "mentor") {
         navigate("/mentorProfileCreate");
