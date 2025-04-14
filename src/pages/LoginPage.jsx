@@ -44,11 +44,14 @@ function Login() {
 
       alert("User Logged In Successfully!");
       console.log("Firestore Data:", userData);
+
       // Navigate based on userType
       if (userData.userType === "mentor") {
         navigate("/mentorProfileCreate");
       } else if (userData.userType === "student") {
         navigate("/postRequirment");
+      } else if (userData.userType === "admin") {
+        navigate("/adminDashboard");
       }
     } catch (error) {
       console.error("Login Failed:", error.message);

@@ -67,6 +67,17 @@ const Navbar = () => {
           >
             About
           </Link>
+
+          {/* Conditionally show Admin Dashboard link */}
+          {userType === "admin" && (
+            <Link
+              to="/adminDashboard"
+              className="block py-2 px-4 sm:px-6 text-base sm:text-lg hover:text-yellow-300 transition duration-300"
+            >
+              Admin Dashboard
+            </Link>
+          )}
+
           {userEmail ? (
             <div className="relative">
               <button
